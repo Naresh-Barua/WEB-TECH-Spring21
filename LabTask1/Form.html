@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html>
-<head> >1. Donation >2.Confirmation 3.Thank you!</head>
+<fieldset>
+	<legend>Donation Form:</legend>
+<head> >1. Donation >2.Confirmation >3.Thank you!</head>
+<p>*-denotes required information</p>
 <p style="font-size:35px;color: red; ">DONOR INFORMATION</p>
 <body>
 
@@ -45,7 +48,7 @@
   <input type="text" id= zip name="zip" value=""><br>
 
   <label for="phn">Phone:</label><br>
-  <input type="text" id= phn name="phn" value=""><br>
+  <input type="tel" id= phn name="phn" placeholder="123-45-678" pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}"><br>
 
   <label for="fax">Fax:</label><br>
   <input type="text" id= fax name="fax" value=""><br>
@@ -54,24 +57,25 @@
   <input type="text" id= email name="email" value=""required><br>
 
   <p>Donation Amount:</p>
+<p>(check a button or type in your amount)</p>
 
-
-  <input type="radio" id="None" name="Blood group" value="None">
+  <input type="radio" id="None" name="DA" value="None"required>
   <label for="None">None</label>
-  <input type="radio" id="$50" name="Blood group" value="$50">
+  <input type="radio" id="$50" name="DA" value="$50">
   <label for="$50">$50</label>
-  <input type="radio" id="$75" name="Blood group" value="$75">
+  <input type="radio" id="$75" name="DA" value="$75">
   <label for="$75">$75</label>
-  <input type="radio" id="$100" name="Blood group" value="$100">
+  <input type="radio" id="$100" name="DA" value="$100">
   <label for="$100">$100</label>
-  <input type="radio" id="$250" name="Blood group" value="$250">
+  <input type="radio" id="$250" name="DA" value="$250">
   <label for="$250">$250</label>
-  <input type="radio" id="other" name="Blood group" value="other">
+  <input type="radio" id="other" name="DA" value="other">
   <label for="other">Other</label><br>
    <label for="Other Amount $ ">Other Amount $:</label><br>
   <input type="text" id="Other Amount $" name="Other Amount $" value=""><br>
   
   <p>Recurring Donation:</p>
+  <p>(check if yes)</p>
   <input type="checkbox"id="Recurring Donation"name="Recurring Donation " value="Recurring Donation">
   <label for="Recurring Donation 11"> I am interested in giving on a reqular basis.</label><br>
 
@@ -83,12 +87,13 @@
 
 
   <p style="font-size:35px;color: red; ">Honorarium and Memorial Donation Information</p>
+  <p>Please enter your name,company or organization as you would like to appear in our publications:</p>
 
   
  <p> I would like to make this donation</p>
-  <input type="radio" id="To Honor" name="To Honor value="To Honor">
+  <input type="radio" id="To Honor" name="Honor" value="To Honor">
   <label for="To Honor">To Honor</label><br>
-  <input type="radio" id="In memory of" name="In memory of"value="In memory of">
+  <input type="radio" id="In memory of" name="Honor" value="In memory of">
   <label for="In memory of">In memory of</label><br>
 
 
@@ -116,10 +121,49 @@
   <input type="text" id= zip1 name="zip1" value=""><br>
 
   <p style="font-size:35px;color: red; ">Additional Information</p>
+
 <label for="name2">Name:</label><br>
   <input type="text" id="name2" name="name2" value="" ><br>
 
+  <input type="radio" id="gft" name="gft" value="gft">
+  <label for="gft">I would like my gift to remain anonymous </label><br>
+   <input type="radio" id="gft" name="gft" value="gft">
+  <label for="gft">My employer offers a matching gift program. I will mail the matching gift form. </label><br>
+   <input type="radio" id="gft" name="gft" value="gft">
+  <label for="gft">Please save the cost of acknowledgeing the gift by not mailinng a thank you letter. </label><br>
 
+
+
+<label for="txtarea">Comments:(Plese type any questions or feedback here)</label><br>
+<textarea name="message" rows="10" cols="30"></textarea>
+  <br><br> 
+<p>How may we contact you?</p>
+<input type="radio" id="email" name="cntct" value="email">
+  <label for="email">Email</label><br>
+
+<input type="radio" id="postal mail" name="cntct" value="postal mail">
+  <label for="postal mail">Postal mail</label><br>
+
+  <input type="radio" id="fax" name="cntct" value="fax">
+  <label for="fax">Fax</label><br>
+
+  <input type="radio" id="phone" name="cntct" value="phone">
+  <label for="phone">Phone</label>
+
+<p>I would like to recieve notifications and information about special events by:</p>
+<input type="radio" id="email" name="cntct" value="email">
+  <label for="email">Email</label><br>
+
+<input type="radio" id="postal mail" name="cntct" value="postal mail">
+  <label for="postal mail">Postal mail</label><br>
+
+  <input type="radio" id="volunteer" name="volunteer" value="volunteer">
+  <label for="volunteer">I would like informationn about volunteering with the : </label><br>
+
+    <input type="submit" value="continue">
+  <input type="reset">
+
+  </fieldset>
 </form>
 
 </body>
