@@ -186,7 +186,7 @@ function test_input($data) {
   <span class="error">* <?php echo $genderErr;?></span>
   <br><br>
 
-    Degree:<br>
+  Degree:<br>
 
   <input type="checkbox"  name="SSC" value="SSC">
    <label for="SSC">SSC</label>
