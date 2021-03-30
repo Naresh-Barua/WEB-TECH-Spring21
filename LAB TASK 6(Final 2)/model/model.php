@@ -5,7 +5,7 @@ require_once 'db_connect.php';
 
 function searchUsername($username){
     $conn = db_conn();
-    $selectQuery = "SELECT * FROM `tutors_info` WHERE User Name = '$username'";
+    $selectQuery = "SELECT * FROM `tutors_info` WHERE USERNAME = '$username'";
 
 
     try{
@@ -19,18 +19,18 @@ function searchUsername($username){
 
 
 function addSignupInfo($data){
-	$conn = db_conn();
-    $selectQuery = "INSERT into tutors_info (Name, E-mail, Birth, User Name,Password,Gender)
-VALUES (:name, :e-mail, :birth, :user name, :password, :gender)";
+    $conn = db_conn();
+    $selectQuery = "INSERT into tutors_info (NAME, EMAIL, BIRTH,USERNAME,PASSWORD,GENDER)
+VALUES (:name, :email, :birth, :username, :password, :gender)";
     try{
         $stmt = $conn->prepare($selectQuery);
         $stmt->execute([
-        	':name' => $data['name'],
-        	':e-mail' => $data['e-mail'],
-        	':birth' => $data['birth'],
-			':user name' => $data['user name'],
-			':password' => $data['password'],
-			':gender' => $data['gender']
+            ':name' => $data['name'],
+            ':email' => $data['email'],
+            ':birth' => $data['birth'],
+                    ':username' => $data['username'],
+                    ':password' => $data['password'],
+                    ':gender' => $data['gender']
 
           ]);
     }catch(PDOException $e){
@@ -40,4 +40,3 @@ VALUES (:name, :e-mail, :birth, :user name, :password, :gender)";
     $conn = null;
     return true;
 }
-
