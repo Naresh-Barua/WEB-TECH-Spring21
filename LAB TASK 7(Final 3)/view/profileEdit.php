@@ -1,3 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+     <style>
+      body {background-color: #B0C4DE;}
+    </style>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+ 
+    <?php
+    include("header.php");
+     ?>
+
 <?php
 
 session_start();
@@ -39,5 +54,10 @@ $birthYear=$birth[4].$birth[5].$birth[6].$birth[7];
   <input type="reset">
 </form>
 
-</body>
+ 
+     <?php
+     include("foot.php");
+      ?>
+
+ </body>
 </html>

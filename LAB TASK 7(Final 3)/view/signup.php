@@ -12,7 +12,7 @@
      ?>
 
 
-<form style="border:3px; border-style:solid; border-color:gray; padding: 1em;" method="post" action="../controller/signupTutor.php">
+<form style=";" method="post" action="../controller/signupTutor.php">
   Name: <input type="text" name="name" >
   <br><br>
    E-mail: <input type="text" name="email">

@@ -46,7 +46,7 @@
  </div>
  <br></br>
  <br></br>
-<p>© 2021<h3>Teacher<span>F</span>.com</h3>. All rights reserved.</p>
+<p>                 © 2021<h3>Teacher<span>F</span>.com</h3>. All rights reserved.</p>
  </div>
  
  <div class="footer-right">

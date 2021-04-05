@@ -1,3 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+     <style>
+      body {background-color: #B0C4DE;}
+    </style>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+ 
+    <?php
+    include("header.php");
+     ?>
 
 <?php
 session_start();
@@ -33,3 +47,12 @@ else {
   echo "You cannot access this page!!";
 }
  ?>
+
+ 
+     <?php
+     include("foot.php");
+      ?>
+
+      
+ </body>
+</html>

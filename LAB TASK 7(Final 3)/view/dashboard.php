@@ -9,6 +9,10 @@
   </head>
   <body>
  
+    <?php
+    include("header.php");
+     ?>
+
 
 <?php
 session_start();
@@ -30,5 +34,11 @@ else {
   echo "You can not access the page.";
 }
  ?>
+
+ 
+     <?php
+     include("foot.php");
+      ?>
+
  </body>
 </html>
