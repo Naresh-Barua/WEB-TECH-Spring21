@@ -12,7 +12,7 @@
     include("header.php");
      ?>
 
-    <form style="border:3px; border-style:solid; border-color:gray; padding: 1em;" method="post" action="../controller/loginTutor.php">
+    <form style="border:3px; border-style:solid; border-color: #B0C4DE; padding: 1em;" method="post" action="../controller/loginTutor.php">
       
         User Name: <input type="text" name="username">
         <br><br>

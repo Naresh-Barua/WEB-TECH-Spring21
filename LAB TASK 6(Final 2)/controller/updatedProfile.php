@@ -1,17 +1,12 @@
 <?php
-
-require_once '../Model/model.php';
-
-
+session_start();
+require_once '../model/model.php';
 
 
-
-
-if (isset($_POST['submit'])) {
+if (isset($_POST['updateTutor']) && isset($_SESSION['username'])) {
 
   $birthDate = $birthMonth = $birthYear = $name = $email = $gender = $comment = $website = $birth="";
-  $username=$password="";
- $confirmpassword="";
+
  $flag=1;
  function test_input($data) {
    $data = trim($data);
@@ -110,86 +105,15 @@ if (isset($_POST['submit'])) {
 
 
 
-    if (empty($_POST["username"])) {
-      echo "User Name is required";
-      $flag=0;
-    }
-    else {
-     $username = test_input($_POST["username"]);
-
-      if (!preg_match("/^[a-zA-Z-. ]*$/",$username)) {
-         echo "Only letters and white space allowed";
-         $flag=0;
-       }
-       else {
-         if(strlen($username)<2)
-         {
-            echo "Name must contains at least two character ";
-            $flag=0;
-         }
-
-       }
-    }
-
-    if(empty($_POST["password"]))
-    {
-      echo "Password is required";
-      $flag=0;
-    }
-    else {
-      $password=test_input($_POST["password"]);
-      if(strlen($password)<8)
-      {
-        echo "Password must not be less than eight (8) characters";
-        $flag=0;
-      }
-      else {
-        if(substr_count($password,"@")<1 || substr_count($password,"#")<1 || substr_count($password,"%")<1 || substr_count($password,"$")<1)
-        {
-          echo "Password must contain at least one of the special characters (@, #, $,%)";
-          $flag=0;
-        }
-      }
-    }
-
-    if(empty($_POST["confirmpassword"]))
-    {
-      echo "Confirm Password is required";
-      $flag=0;
-    }
-    else {
-      if(empty($_POST["password"]))
-      {
-        echo "Password is required";
-        $flag=0;
-      }
-      else {
-        $confirmpassword=test_input($_POST["confirmpassword"]);
-
-        if(strcmp($password,$confirmpassword))
-        {
-          echo "Password and confirm password have to be same";
-          $flag=0;
-        }
-      }
-    }
-    if (empty($_POST["gender"])) {
-      echo "Gender is required";
-      $flag=0;
-    } else {
-      $gender = test_input($_POST["gender"]);
-    }
 
 if($flag==1)
 {
   $data['name']=$name;
   $data['email']=$email;
   $data['birth']=$birth;
-  $data['username']=$username;
-  $data['password']=$password;
-  $data['gender']=$gender;
 
-  if (addSignupInfo($data)) {
+
+  if (updateTutor($_SESSION['username'],$data)) {
     echo 'Successfully added!!';
   }
 
@@ -199,14 +123,9 @@ if($flag==1)
 }
 
 
-
-}else {
-  echo "You can not access this page!!";
+} else {
+	echo 'You are not allowed to access this page.';
 }
-
-
-
-
 
 
 ?>
