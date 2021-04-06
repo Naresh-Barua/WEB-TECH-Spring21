@@ -2,23 +2,30 @@ body {
  margin: 0;
  padding: 0;
 }
+.main {
+ max-height: 250px;
+ margin-top: 700px;
+ background-color: #292c2f;
+ color: white;
+ font-size: 38pt;
+ text-align: center;
+ line-height: 350px;
+}
+footer{
+ position: fixed;
+ bottom: 0;
+}
 .footer-distributed{
-	background-color: black;
+ background-color: white;
  box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.12);
  box-sizing: border-box;
  width: 100%;
  text-align: left;
  font: bold 16px sans-serif;
  
- 
+ padding: 55px 50px;
  margin-top: 80px;
 }
-footer{
- position: fixed;
- bottom: 0;
-}
-
-
  
 .footer-distributed .footer-left,
 .footer-distributed .footer-center,

@@ -8,7 +8,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
 
-	<link rel="stylesheet" href="style.css">
+	<link rel="stylesheet" href="../css/style.css">
 	
 	<link href='https://fonts.googleapis.com/css?family=Cookie' rel='stylesheet' type='text/css'>
 
@@ -16,11 +16,11 @@
 
 <body>
 
-<header class="header-fixed">
+<header class="header-fixed"  style="font-size: 40px;">
 
-	<div class="header-limiter">
+	<div class="header-limiter" style="font-size: 40px;">
 
-		<h1><b>Teacher</b><span>F</span>.com</a></h1>
+		<h1>Teacher <span style="font-size: 40px;">F</span>.com</a></h1>
 
 		<nav>
 			<a href="home.php">Home</a>
