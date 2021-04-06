@@ -41,6 +41,7 @@
 
 
 
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script>
 
@@ -74,9 +75,6 @@
 
 </script>
 
-
-<!-- Demo ads. Please ignore and remove. -->
-<script src="http://cdn.tutorialzine.com/misc/enhance/v3.js" async></script>
 
 
 </body>
