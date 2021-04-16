@@ -14,24 +14,25 @@ if(isset($_POST['submit']))
   }
 
   $username=$password="";
+   $userNameErr = $passwordErr ="";
   $flag=1;
 
 
   if (empty($_POST["username"])) {
-    echo "User Name is required";
+    $userNameErr = "User Name is required";
     $flag=0;
   }
   else {
    $username = test_input($_POST["username"]);
 
     if (!preg_match("/^[a-zA-Z-. ]*$/",$username)) {
-       echo "Only letters and white space allowed";
+       $userNameErr = "Only letters and white space allowed";
        $flag=0;
      }
      else {
        if(strlen($username)<2)
        {
-          echo "Name must contains at least two character ";
+          $userNameErr = "Name must contains at least two character ";
           $flag=0;
        }
 
@@ -41,25 +42,33 @@ if(isset($_POST['submit']))
 
  if(empty($_POST["password"]))
  {
-   echo "Password is required";
+   $passwordErr = "Password is required";
    $flag=0;
  }
  else {
    $password=test_input($_POST["password"]);
    if(strlen($password)<8)
    {
-     echo "Password must not be less than eight (8) characters";
+     $passwordErr = "Wrong Password";
      $flag=0;
    }
    else {
      if(substr_count($password,"@")<1 || substr_count($password,"#")<1 || substr_count($password,"%")<1 || substr_count($password,"$")<1)
      {
-       echo "Password must contain at least one of the special characters (@, #, $,%)";
+       $passwordErr = "Password must contain at least one of the special characters (@, #, $,%)";
        $flag=0;
      }
    }
  }
-
+if($flag==0){
+    $args = array(
+    'userNameErr' => $userNameErr,
+    'passwordErr' => $passwordErr
+);
+  
+      header("location:../view/login.php?" . 
+      	http_build_query($args));
+   }
 
   if($flag==1)
   {
@@ -79,10 +88,10 @@ if(isset($_POST['submit']))
           header('Location: ../view/dashboard.php');
         }
         else {
-          echo "Incorrect Password";
+          $passwordErr = "Incorrect Password";
         }
       }else {
-        echo "Username not found";
+        $userNameErr = "Username not found";
       }
 
 

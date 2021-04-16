@@ -1,53 +1,54 @@
 <?php
-session_start();
+require_once '../model/model.php';
+
+if (isset($_POST['submit'])) {
+ $usernameErr = $username =  $email = $emailErr = $course = $courseErr = $salary = $salaryErr = $details = $detailsErr ="";
+
+ $flag=1
+;
+ function test_input($data) {
+   $data = trim($data);
+   $data = stripslashes($data);
+   $data = htmlspecialchars($data);
+   return $data;
+ }
 
 
-
- //$birthErr = $nameErr = $emailErr = $genderErr = $websiteErr =$error= "";
-$name = $email = $gender = $comment = $website = "";
- $username=$password="";
-// $usernameErr=$passwordErr="";
-$confirmpassword="";
-//$confirmpasswordErr="";
-$flag=1;
-
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-  if (empty($_POST["yourname"])) {
-    $_SESSION['yournameErr'] = "Name is required";
+  if (empty($_POST["username"])) {
+    $usernameErr =  "Name is required";
     $flag=0;
   } else {
 
-       $yourname = test_input($_POST["yourname"]);
+       $username = test_input($_POST["username"]);
 
-      if ($_SESSION['name']!=$yourname) {
-         $_SESSION['yournameErr'] = "Your name doesnot match your user name";
+      if (!preg_match("/^[a-zA-Z-. ]*$/",$username)) {
+         $usernameErr =  "Only letters and white space allowed";
          $flag=0;
        }
+    else  {
+             if(str_word_count($username)<1)
+          {
+          $usernameErr =  "Name must contains at least two words ";
+           $flag=0;
 
-      else {
-        $yourname = test_input($_POST["yourname"]);
-        $_SESSION['yourname']=$yourname;
-        $_SESSION['yournameErr']="";
-      }
+          }
     }
+  }
 
   if (empty($_POST["email"])) {
-    $_SESSION['emailErr'] = "Email is required";
+    $emailErr= "Email is required";
     $flag=0;
   } else {
     $email = test_input($_POST["email"]);
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-      $_SESSION['emailErr'] = "Invalid email format";
+      $emailErr= "Invalid email format";
       $flag=0;
-    }
-    else {
-      $_SESSION['email']=$email;
-      $_SESSION['emailErr']="";
     }
   }
 
+
   if (empty($_POST["salary"])) {
-    $_SESSION['salaryErr'] = "Salary is required";
+    $salaryErr = "Salary is required";
     $flag=0;
   } else {
 
@@ -56,120 +57,93 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if(!is_numeric($salary))
     {
-      $_SESSION['salaryErr']="Please input Numeric Number";
+      $salaryErr ="Please input Numeric Number";
       $flag=0;
     }
     else {
 
           if($salary>10000 || $salary<500)
           {
-              $_SESSION['salaryErr']=" Salary must be between 500 to 10000";
+              $salaryErr =" Salary must be between 500 to 10000";
               $flag=0;
           }
-          else {
-
-                    $_SESSION['salaryErr']=" ";
-                    $_SESSION['salary']=$salary;
-                  }
+        
               }
-          }
+          
+}
 
 
 
-
-    if (empty($_POST["coursename"])) {
-      $_SESSION['coursenameErr'] = "Course Name Name is required";
+    if (empty($_POST["course"])) {
+      $courseErr = "Course Name Name is required";
       $flag=0;
     }
     else {
-     $coursename = test_input($_POST["coursename"]);
+     $course = test_input($_POST["course"]);
 
-      if (!preg_match("/^[a-zA-Z-. ]*$/",$coursename)) {
-         $_SESSION['coursenameErr'] = "Only letters and white space allowed";
+     if (!preg_match("/^[a-zA-Z-. ]*$/",$coursename)) {
+        $courseErr = "Only letters and white space allowed";
          $flag=0;
        }
-       else {
-
-
-           $_SESSION['coursename']=$coursename;
-           $_SESSION['coursenameErr']="";
-
-       }
+       
     }
 
-    if(empty($_POST["comment"]))
+    if(empty($_POST["details"]))
     {
-      $_SESSION['commentErr'] = "Comment is required";
+      $detailsErr = "details is required";
       $flag=0;
     }
     else {
-      $comment=test_input($_POST["comment"]);
-      if(strlen($comment)<20)
+      $details=test_input($_POST["details"]);
+      if(strlen($details)<20)
       {
-        $_SESSION['commentErr']="Comment must not be less than eight (20) characters";
+        $detailsErr="details can not be less than eight (20) characters";
         $flag=0;
       }
-      else {
-
-
-          $_SESSION['commentErr']="";
-        }
+     
       }
+}
 
+if($flag==0){
+    $args = array(
+    'usernameErr' => $usernameErr,
+    'emailErr' => $emailErr,
+    'courseErr'=> $courseErr,
+    'salaryErr'=> $salaryErr,
+    'detailsErr' => $detailsErr
+);
+  
+      header("location:../view/giveAd.php?" . 
+        http_build_query($args));
+   }
 
+if($flag==1)
+{  
+  $data['username']=$username;
+  $data['email']=$email;
+  $data['course']=$course;
+  $data['salary']=$salary;
+  $data['details']=$details;
+ 
+  if (tutorAd($data)) {
+    header("location:../view/giveAd.php?");
+  }
 
-
-
-
-
-    if(isset($_POST["submit"]))
-    {
-      if(file_exists('postad.json') && $flag==1)
-      {
-
-           $current_data = file_get_contents('postad.json');
-           $array_data = json_decode($current_data, true);
-           $extra = array(
-                'yourname'               =>     $yourname,
-                'email'           =>     $email,
-                'coursename'       =>    $coursename,
-                'salary'       =>    $salary,
-                'comment'       =>    $comment,
-
-           );
-           $array_data[] = $extra;
-           $final_data = json_encode($array_data);
-           if(file_put_contents('postad.json', $final_data))
-           {
-                $message = "<label class='text-success'>File Appended Success fully</p>";
-           }
-      }
-      else
-      {
-           $error = 'JSON File not exits';
-      }
-     }
-
-
-
-     if(isset($_POST["submit"]) && $flag==0)
-     {
-       header("location:../View/postad.php");
-     }
-     else {
-       header("location:../View/dashboard.php");
-     }
-
-
-
+  else {
+    echo 'Could not add!!';
+  }
 }
 
 
 
-function test_input($data) {
-  $data = trim($data);
-  $data = stripslashes($data);
-  $data = htmlspecialchars($data);
-  return $data;
+else {
+  echo "You can not access this page!!";
 }
+
+
+
+
+
+
+
 ?>

@@ -37,7 +37,7 @@ if (empty($_SESSION['username']))
 {
   header("location: login.php");
 }else{
-	echo "<div style='float: right';>"." Logged in as <a href='profile.php'>".$_SESSION['username']."</a> | ";
+	echo "<div style='float: right';>"." Logged in as <a href='viewprofile.php'>".$_SESSION['username']."</a> | ";
 	echo "<a href='../controller/logout.php'>Logout</a><br>";
 	echo "</div><br><br><br><br><hr>";
 }
@@ -48,19 +48,17 @@ require_once '../controller/tutorDetails.php';
 <?php
 if(isset($_SESSION['username']))
 {
-$data = fetchStudent($_SESSION['username']);
+$data = fetchAd($_SESSION['username']);
 
 
   if($data!=NULL)
   {
     foreach ($data as $i => $student):
 
-         $name= $student['NAME'] ;
-         $email=$student['EMAIL'];
          $username= $student['USERNAME'] ;
-         $birth=$student['BIRTH'];
-         $gender= $student['GENDER'] ;
-         $password= $student['PASSWORD'];
+         $email=$student['EMAIL'];
+         $course= $student['COURSE'] ;
+         
     endforeach;
 
    
@@ -68,8 +66,9 @@ $data = fetchStudent($_SESSION['username']);
 }
 ?>
 <table >
-   <tr style="border:1px black;" >
-      <th style="border:1px black;">
+  <tr>
+    <th>
+    
       <div style="float: left; text-align: left;">
        <a href="dashboard.php">Dashboard</a><br><br>
       <br><br>
@@ -87,15 +86,12 @@ $data = fetchStudent($_SESSION['username']);
     </th>
     <th>
       <?php
-      echo"<div style='text-align:center; margin-left:800px;' >";
-       echo "<h2>Name: $name</h2>";
-    echo "<br />Email: $email" ;
-    echo "<br />Username: $username";
-    echo "<br />Date of Birth: $birth";
-    echo "<br />Gender: $gender";
-    echo "<br />Password: $password";
-    echo '<br /><a class="button" href="profileEdit.php"><b>Edit</b></a></div><br><br>
-      <br><br>';
+      echo"<div style='text-align:center; margin-left:600px;' >";
+       echo "<h2>Username: $username</h2>";
+    echo "<br />Email: $email";
+    echo "<br />Course: $course";
+    
+
       ?>
     </th>
     </tr> 

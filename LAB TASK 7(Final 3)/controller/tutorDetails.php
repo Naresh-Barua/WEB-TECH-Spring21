@@ -9,5 +9,13 @@ function fetchAllStudents(){
 function fetchStudent($username){
 	return showTutor($username);
 
+ } 
+function fetchAd($username){
+	return showAd($username);
+
+ }
+
+function fetchTutor($id){
+	return showAd($id);
 }
 ?>

@@ -27,6 +27,7 @@
 			<a href="login.php">Log In</a>
 			<a href="signup.php">Sign In</a>
 			<a href ="adpage.php">Tutors Ad </a>
+			<a href="aboutUs.php">About Us</a>
 		</nav>
 
 	</div>

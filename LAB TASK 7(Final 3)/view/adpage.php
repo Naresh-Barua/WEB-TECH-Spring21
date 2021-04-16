@@ -2,7 +2,10 @@
 <html lang="en" dir="ltr">
   <head>
     <style>
-      body {background-color: #B0C4DE;}
+      body { background-image: url('../photos/get-started-bg_2_optimized.png');
+  background-repeat: no-repeat;
+  background-attachment: fixed;  
+  background-size: cover; }
     </style>
     <meta charset="utf-8">
     <title></title>

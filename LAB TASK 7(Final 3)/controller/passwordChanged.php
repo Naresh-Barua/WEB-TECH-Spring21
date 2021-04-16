@@ -7,6 +7,7 @@ session_start();
 if(isset($_POST['submit']) && isset($_SESSION['username']))
 {
   $cpassword=$npassword=$rnpassword="";
+  $cpasswordErr = $npasswordErr =$rnpasswordErr ="";
 
   function test_input($data) {
    $data = trim($data);
@@ -16,11 +17,12 @@ if(isset($_POST['submit']) && isset($_SESSION['username']))
   }
 
   $username=$password="";
+     $userNameErr = $passwordErr ="";
   $flag=1;
 
 
   if (empty($_POST["cpassword"])) {
-       echo "Current Password is required";
+        $cpasswordErr = "Current Password is required";
        $flag=0;
      }
      else {
@@ -32,20 +34,20 @@ if(isset($_POST['submit']) && isset($_SESSION['username']))
 
  if(empty($_POST["npassword"]))
  {
-   echo "Password is required";
+   $npasswordErr = "New password is required";
    $flag=0;
  }
  else {
    $npassword=test_input($_POST["npassword"]);
    if(strlen($npassword)<8)
    {
-     echo "Password must not be less than eight (8) characters";
+     $npasswordErr = "Password must not be less than eight (8) characters";
      $flag=0;
    }
    else {
      if(substr_count($npassword,"@")<1 || substr_count($npassword,"#")<1 || substr_count($npassword,"%")<1 || substr_count($npassword,"$")<1)
      {
-       echo "Password must contain at least one of the special characters (@, #, $,%)";
+       $npasswordErr = "Password must contain at least one of the special characters (@, #, $,%)";
        $flag=0;
      }
    }
@@ -53,25 +55,37 @@ if(isset($_POST['submit']) && isset($_SESSION['username']))
 
  if(empty($_POST["rnpassword"]))
  {
-   echo "Password is required";
+   $rnpasswordErr = "Retype password is required";
    $flag=0;
  }
  else {
    $rnpassword=test_input($_POST["rnpassword"]);
    if(strlen($rnpassword)<8)
    {
-     echo "Password must not be less than eight (8) characters";
+     $rnpasswordErr = "Password must not be less than eight (8) characters";
      $flag=0;
    }
    else {
      if(substr_count($rnpassword,"@")<1 || substr_count($rnpassword,"#")<1 || substr_count($rnpassword,"%")<1 || substr_count($rnpassword,"$")<1)
      {
-       echo "Password must contain at least one of the special characters (@, #, $,%)";
+       $rnpasswordErr = "Password must contain at least one of the special characters (@, #, $,%)";
        $flag=0;
      }
    }
  }
+if($flag==0){
+    $args = array(
+    'userNameErr' => $userNameErr,
+    'passwordErr' => $passwordErr,
+    'cpasswordErr' => $cpasswordErr,
+     'npasswordErr'  =>  $npasswordErr,
+      'rnpasswordErr' =>  $rnpasswordErr
 
+);
+    header("location:../view/passwordChange.php?" . 
+      	http_build_query($args));
+   }
+  
 
 
   if($flag==1)
@@ -98,7 +112,7 @@ if(isset($_POST['submit']) && isset($_SESSION['username']))
           }
         }
         else {
-          echo "New password and retype password is not same!!";
+          echo "New password and retyped password is not same!!";
         }
         }
         else {

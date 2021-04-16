@@ -1,6 +1,6 @@
 <?php
 
-require_once '../Model/model.php';
+require_once '../model/model.php';
 
 
 
@@ -8,11 +8,19 @@ require_once '../Model/model.php';
 
 
 if (isset($_POST['submit'])) {
-
-  $birthDate = $birthMonth = $birthYear = $name = $email = $gender = $comment = $website = $birth="";
+ 
+  $birthDate = $birthDateErr = $birthMonth = $birthMonthErr= $birthYear = $birthYearErr =
+  $name = $nameErr = 
+  $email = $emailErr =
+  $gender = $genderErr =
+  $comment = 
+  $website = 
+  $birth="";
   $username=$password="";
+  $userNameErr = $passwordErr = $confirmpasswordErr =
  $confirmpassword="";
- $flag=1;
+ $flag=1
+;
  function test_input($data) {
    $data = trim($data);
    $data = stripslashes($data);
@@ -21,20 +29,20 @@ if (isset($_POST['submit'])) {
  }
 
   if (empty($_POST["name"])) {
-    echo "Name is required";
+    $nameErr =  "Name is required";
     $flag=0;
   } else {
 
        $name = test_input($_POST["name"]);
 
       if (!preg_match("/^[a-zA-Z-. ]*$/",$name)) {
-         echo "Only letters and white space allowed";
+         $nameErr =  "Only letters and white space allowed";
          $flag=0;
        }
     else  {
              if(str_word_count($name)<2)
           {
-          echo "Name must contains at least two words ";
+          $nameErr =  "Name must contains at least two words ";
            $flag=0;
 
           }
@@ -42,125 +50,109 @@ if (isset($_POST['submit'])) {
   }
 
   if (empty($_POST["email"])) {
-    echo "Email is required";
+    $emailErr= "Email is required";
     $flag=0;
   } else {
     $email = test_input($_POST["email"]);
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-      echo "Invalid email format";
+      $emailErr= "Invalid email format";
       $flag=0;
     }
   }
 
-  if (empty($_POST["birthDate"]) || empty($_POST["birthMonth"]) || empty($_POST["birthYear"])) {
-    echo "Date Month and Year is required";
+  if (empty($_POST["birth"])) {
+$birthErr= "Birthday is required";
+$flag=0;
+} else {
+
+
+
+
+$birth=test_input($_POST["birth"]);
+$birthDate=$birth[8].$birth[9];
+$birthMonth=$birth[5].$birth[6];
+$birthYear=$birth[0].$birth[1].$birth[2].$birth[3];
+
+
+
+
+if($birthYear>2021 || $birthYear<1953)
+{
+$birthErr ="Input Year between 1953 to 2021";
+$flag=0;
+}
+else {
+$birth =$birthDate."/".$birthMonth."/".$birthYear;
+}
+}
+
+  if (empty($_POST["gender"])) {
+     $genderErr = "Gender is required";
     $flag=0;
   } else {
-
-    $birthDate=test_input($_POST["birthDate"]);
-    $birthMonth=test_input($_POST["birthMonth"]);
-    $birthYear=test_input($_POST["birthYear"]);
-
-    if(!is_numeric($birthDate))
-    {
-      echo "Please input Numeric Date";
-      $flag=0;
-    }
-    else {
-
-      if(!is_numeric($birthMonth))
-      {
-          echo "Please input Numeric month";
-          $flag=0;
-      }
-      else {
-        if(!is_numeric($birthYear))
-        {
-          echo "Please input Numeric Year";
-          $flag=0;
-        }
-        else {
-          if($birthDate>31 || $birthDate<1)
-          {
-              echo " Input Date between 1 to 31";
-              $flag=0;
-          }
-          else {
-              if($birthMonth>12 || $birthMonth<1)
-              {
-                  echo  "Input Month between 1 to 12";
-                  $flag=0;
-              }
-              else {
-                  if($birthYear>2021 || $birthYear<1953)
-                  {
-                    echo "Input Year between 1953 to 2021";
-                    $flag=0;
-                  }
-                  else {
-                  $birth =$birthDate."/".$birthMonth."/".$birthYear;
-                  }
-              }
-          }
-
-        }
-      }
-    }
+    $gender = test_input($_POST["gender"]);
   }
 
 
 
-    if (empty($_POST["username"])) {
-      echo "User Name is required";
+
+
+
+   if (empty($_POST["username"])) {
+    $userNameErr = "UserName is required";
+    $flag=0;
+  } else {
+    $username = test_input($_POST["username"]);
+    if (!preg_match("/^[a-zA-Z-._]*$/",$username)) {
+      $userNameErr = "Only alpha numeric characters, period, dash or underscore allowed";
+      $username ="";
       $flag=0;
     }
-    else {
-     $username = test_input($_POST["username"]);
-
-      if (!preg_match("/^[a-zA-Z-. ]*$/",$username)) {
-         echo "Only letters and white space allowed";
-         $flag=0;
-       }
-       else {
-         if(strlen($username)<2)
-         {
-            echo "Name must contains at least two character ";
-            $flag=0;
-         }
-
-       }
+    else if (strlen($username)<2) {
+      $userNameErr = "At least two charecters needed";
+      $username ="";
+      $flag=0;
     }
+    else if(checkUsername($tableName, $username)){
+      $userNameErr = "Username in use.Try Different Username";
+      
+      $flag=0;
+    }
+  }
 
     if(empty($_POST["password"]))
     {
-      echo "Password is required";
+      $passwordErr = "Password is required";
       $flag=0;
     }
     else {
       $password=test_input($_POST["password"]);
       if(strlen($password)<8)
       {
-        echo "Password must not be less than eight (8) characters";
+        $passwordErr = "Password must not be less than eight (8) characters";
         $flag=0;
       }
       else {
         if(substr_count($password,"@")<1 || substr_count($password,"#")<1 || substr_count($password,"%")<1 || substr_count($password,"$")<1)
         {
-          echo "Password must contain at least one of the special characters (@, #, $,%)";
+          $passwordErr = "Password must contain at least one of the special characters (@, #, $,%)";
           $flag=0;
         }
       }
     }
 
+
+
+
     if(empty($_POST["confirmpassword"]))
     {
-      echo "Confirm Password is required";
+      $confirmpasswordErr = "Confirm Password is required";
       $flag=0;
     }
     else {
       if(empty($_POST["password"]))
       {
-        echo "Password is required";
+        $confirmpasswordErr = "Password is required";
         $flag=0;
       }
       else {
@@ -168,20 +160,28 @@ if (isset($_POST['submit'])) {
 
         if(strcmp($password,$confirmpassword))
         {
-          echo "Password and confirm password have to be same";
+          $confirmpasswordErr = "Password and confirm password have to be same";
           $flag=0;
         }
       }
     }
-    if (empty($_POST["gender"])) {
-      echo "Gender is required";
-      $flag=0;
-    } else {
-      $gender = test_input($_POST["gender"]);
-    }
+    if($flag==0){
+    $args = array(
+    'nameErr' => $nameErr,
+    'emailErr' => $emailErr,
+    'userNameErr' => $userNameErr,
+    'passwordErr' => $passwordErr,
+    'confirmpasswordErr' => $confirmpasswordErr,
+    'genderErr' => $genderErr,
+    'birthErr' => $birthErr
+);
+  
+      header("location:../view/signup.php?" . 
+      	http_build_query($args));
+   }
 
 if($flag==1)
-{
+{  
   $data['name']=$name;
   $data['email']=$email;
   $data['birth']=$birth;
@@ -189,8 +189,8 @@ if($flag==1)
   $data['password']=$password;
   $data['gender']=$gender;
 
-  if (addSignupInfo($data)) {
-    echo 'Successfully added!!';
+  if (tutorSignup($data)) {
+    header("location:../view/login.php?");
   }
 
   else {

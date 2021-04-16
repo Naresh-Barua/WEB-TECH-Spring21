@@ -6,7 +6,7 @@ require_once '../model/model.php';
 if (isset($_POST['updateTutor']) && isset($_SESSION['username'])) {
 
   $birthDate = $birthMonth = $birthYear = $name = $email = $gender = $comment = $website = $birth="";
-
+  $birthDateErr = $birthMonthErr = $birthYearErr = $nameErr = $emailErr = $birthErr = "";
  $flag=1;
  function test_input($data) {
    $data = trim($data);
@@ -16,20 +16,20 @@ if (isset($_POST['updateTutor']) && isset($_SESSION['username'])) {
  }
 
   if (empty($_POST["name"])) {
-    echo "Name is required";
+    $nameErr = "Name is required";
     $flag=0;
   } else {
 
        $name = test_input($_POST["name"]);
 
       if (!preg_match("/^[a-zA-Z-. ]*$/",$name)) {
-         echo "Only letters and white space allowed";
+         $nameErr = "Only letters and white space allowed";
          $flag=0;
        }
     else  {
              if(str_word_count($name)<2)
           {
-          echo "Name must contains at least two words ";
+          $nameErr = "Name must contains at least two words ";
            $flag=0;
 
           }
@@ -37,75 +37,46 @@ if (isset($_POST['updateTutor']) && isset($_SESSION['username'])) {
   }
 
   if (empty($_POST["email"])) {
-    echo "Email is required";
+    $emailErr = "Email is required";
     $flag=0;
   } else {
     $email = test_input($_POST["email"]);
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-      echo "Invalid email format";
+      $emailErr = "Invalid email format";
       $flag=0;
     }
   }
 
-  if (empty($_POST["birthDate"]) || empty($_POST["birthMonth"]) || empty($_POST["birthYear"])) {
-    echo "Date Month and Year is required";
-    $flag=0;
-  } else {
-
-    $birthDate=test_input($_POST["birthDate"]);
-    $birthMonth=test_input($_POST["birthMonth"]);
-    $birthYear=test_input($_POST["birthYear"]);
-
-    if(!is_numeric($birthDate))
-    {
-      echo "Please input Numeric Date";
-      $flag=0;
-    }
-    else {
-
-      if(!is_numeric($birthMonth))
-      {
-          echo "Please input Numeric month";
-          $flag=0;
-      }
-      else {
-        if(!is_numeric($birthYear))
-        {
-          echo "Please input Numeric Year";
-          $flag=0;
-        }
-        else {
-          if($birthDate>31 || $birthDate<1)
-          {
-              echo " Input Date between 1 to 31";
-              $flag=0;
-          }
-          else {
-              if($birthMonth>12 || $birthMonth<1)
-              {
-                  echo  "Input Month between 1 to 12";
-                  $flag=0;
-              }
-              else {
-                  if($birthYear>2021 || $birthYear<1953)
-                  {
-                    echo "Input Year between 1953 to 2021";
-                    $flag=0;
-                  }
-                  else {
-                  $birth =$birthDate."/".$birthMonth."/".$birthYear;
-                  }
-              }
-          }
-
-        }
-      }
-    }
-  }
+  if (empty($_POST["birth"])) {
+$birthErr= "Birthday is required";
+$flag=0;
+} else {
 
 
+$birth=test_input($_POST["birth"]);
+$birthDate=$birth[8].$birth[9];
+$birthMonth=$birth[5].$birth[6];
+$birthYear=$birth[0].$birth[1].$birth[2].$birth[3];
 
+if($birthYear>2021 || $birthYear<1953)
+{
+$birthErr ="Input Year between 1953 to 2021";
+$flag=0;
+}
+else {
+$birth =$birthDate."/".$birthMonth."/".$birthYear;
+}
+}
 
+if($flag==0){
+    $args = array(
+    'nameErr' => $nameErr,
+    'emailErr' => $emailErr,
+    'birthErr' => $birthErr
+);
+ header("location:../view/profileEdit.php?" . 
+        http_build_query($args));
+   }
 if($flag==1)
 {
   $data['name']=$name;
@@ -114,7 +85,7 @@ if($flag==1)
 
 
   if (updateTutor($_SESSION['username'],$data)) {
-    echo 'Successfully added!!';
+   header("location:../view/dashboard.php?");
   }
 
   else {

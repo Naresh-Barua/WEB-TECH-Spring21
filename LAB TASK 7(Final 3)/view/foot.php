@@ -8,7 +8,7 @@
  <meta name="viewport" content="width=device-width, initial-scale=1">
  <meta name="keywords" content="footer, address, phone, icons" />
  
- <title>Footer With Address And Phones</title>
+ <title></title>
  
  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
     <link href="http://fonts.googleapis.com/css?family=Cookie" rel="stylesheet" type="text/css">
@@ -16,8 +16,9 @@
  
 </head>
  
- <body>
- <footer class="footer-distributed"style="background-color: #292c2f;padding: 15px 10px;">
+ <body> 
+ 	<div style="margin-top: 800px; "> 
+ <footer class="footer-distributed"style="background-color: #292c2f;padding: 15px 10px;  ">
  
  <div class="footer-left"style="margin-left: 30px">
  
@@ -29,6 +30,7 @@
 TeacherF is a website where you can find help from professional teachers &amp;
 tutors &amp; even can become one of them to help others and also earn from it.</p>
  </div>
+ 
  
  <div class="footer-center">
  
@@ -65,7 +67,7 @@ tutors &amp; even can become one of them to help others and also earn from it.</
  </div>
  
  </footer>
- 
+ </div>
  </body>
  
 </html>
